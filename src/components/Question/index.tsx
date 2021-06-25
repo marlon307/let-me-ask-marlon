@@ -1,5 +1,6 @@
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
 import './question.scss';
+import cx from 'classnames';
 
 type QuestonProps = {
   content: string;
@@ -8,11 +9,22 @@ type QuestonProps = {
     avatar: string;
   }
   children?: ReactNode;
+  isAnswered?: boolean;
+  isHighlighted?: boolean;
 }
 
-export const Question = ({ content, author, children }: QuestonProps) => {
+export const Question = ({
+  content,
+  author,
+  children,
+  isAnswered = false,
+  isHighlighted = false, }: QuestonProps) => {
   return (
-    <div className="question">
+    <div className={
+      cx('question', {
+        answered: isAnswered,
+        highlighted: isHighlighted && !isAnswered,
+      }) }>
       <p>{ content }</p>
       <footer>
         <div className="user-info">

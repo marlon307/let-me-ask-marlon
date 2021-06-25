@@ -9,7 +9,7 @@ type FireBaseQuestions = Record<string, {
   }
   content: string;
   isAnswered: boolean;
-  isHighLighted: boolean;
+  isHighlighted: boolean;
   likes: Record<string, {
     authorId: string;
   }>;
@@ -23,7 +23,7 @@ type QuestionType = {
   }
   content: string;
   isAnswered: boolean;
-  isHighLighted: boolean;
+  isHighlighted: boolean;
   likeCount: number;
   likeId: string | undefined;
 }
@@ -41,13 +41,12 @@ export const useRoom = (roomId: string) => {
       const firebaseQuestions: FireBaseQuestions = databaseRoom.questions ?? {};
 
       const parsetQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
-        console.log(Object.entries(value.likes ?? {}).find(([key, like]) => like.authorId === user?.id));
-
+        Object.entries(value.likes ?? {}).find(([key, like]) => like.authorId === user?.id);
         return {
           id: key,
           content: value.content,
           author: value.author,
-          isHighLighted: value.isHighLighted,
+          isHighlighted: value.isHighlighted,
           isAnswered: value.isAnswered,
           likeCount: Object.values(value.likes ?? {}).length,
           likeId: Object.entries(value.likes ?? {}).find(([key, like]) => like.authorId === user?.id)?.[0],
